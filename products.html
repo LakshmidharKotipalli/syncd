@@ -3,26 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>sync’d | Products</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<header>
+  <img src="assets/logo-shell.png" alt="sync’d logo" class="logo-header" />
+</header>
+
+<main>
   <h1 id="category-title"></h1>
   <div class="product-grid" id="products"></div>
+</main>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    document.getElementById('category-title').textContent = category.toUpperCase();
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const category = urlParams.get('category');
+  const categoryTitle = category ? category.toUpperCase() : 'PRODUCTS';
+  document.getElementById('category-title').textContent = categoryTitle;
 
-    const productsContainer = document.getElementById('products');
+  const productsContainer = document.getElementById('products');
 
-    // Create 10 placeholder items dynamically
-    for (let i = 1; i <= 10; i++) {
-      const div = document.createElement('div');
-      div.className = 'product';
-      div.textContent = `${category} ${i}`;
-      productsContainer.appendChild(div);
-    }
-  </script>
+  for (let i = 1; i <= 10; i++) {
+    const div = document.createElement('div');
+    div.className = 'product';
+    div.innerHTML = `
+      <div class="product-image"></div>
+      <p class="product-name">${categoryTitle} ${i}</p>
+    `;
+    productsContainer.appendChild(div);
+  }
+</script>
+
 </body>
 </html>
