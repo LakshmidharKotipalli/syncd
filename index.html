@@ -62,6 +62,33 @@
   </div>
   <div class="cart-overlay" id="cartOverlay"></div>
 
+  <!-- VTO MODAL -->
+  <div class="vto-modal" id="vtoModal">
+    <div class="vto-container">
+      <div class="vto-header">
+        <h3>Virtual Mirror</h3>
+        <button class="vto-close" id="closeVTO">✕</button>
+      </div>
+      <div class="vto-viewport">
+        <video id="vtoVideo" autoplay playsinline muted></video>
+        <img id="vtoOverlay" class="vto-overlay-item" src="" alt="Jewelry Overlay" />
+      </div>
+      <div class="vto-controls">
+        <div class="control-group">
+          <label>Scale</label>
+          <input type="range" class="vto-slider" id="vtoScale" min="50" max="400" value="150" />
+        </div>
+        <div class="control-group">
+          <label>Rotate</label>
+          <input type="range" class="vto-slider" id="vtoRotate" min="-180" max="180" value="0" />
+        </div>
+        <div class="control-group" style="justify-content: center; align-items: flex-start;">
+          <p style="font-size: 11px; color: var(--primary-light);">Drag the item to position it perfectly</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-bg">
@@ -198,6 +225,7 @@
                 <div class="qty-control"><button onclick="chQty(this, -1)">−</button><span class="qty">1</span><button onclick="chQty(this, 1)">+</button></div>
                 <button class="add-btn" onclick="hAddToCart('${product.id}', this)">+</button>
               </div>
+              <button class="vto-btn" onclick="openVTO('${product.id}')">Try On Virtually</button>
             </div>
           </div>`;
       });
@@ -226,6 +254,86 @@
       document.getElementById("cartCount").textContent = Cart.getCount();
     }
     window.addEventListener('cartUpdated', renderCart);
+
+    // VTO LOGIC
+    const vtoModal = document.getElementById('vtoModal');
+    const vtoVideo = document.getElementById('vtoVideo');
+    const vtoOverlay = document.getElementById('vtoOverlay');
+    const vtoScale = document.getElementById('vtoScale');
+    const vtoRotate = document.getElementById('vtoRotate');
+    const closeVTO = document.getElementById('closeVTO');
+
+    let isDragging = false;
+    let startX, startY;
+    let posX = 0, posY = 0;
+
+    function openVTO(id) {
+      const all = [...productData.necklace, ...productData.earrings, ...productData.bracelet];
+      const p = all.find(x => x.id === id);
+      
+      // Determine which overlay image to use based on type
+      let overlaySrc = "assets/images/vto_necklace.png";
+      if (id.startsWith('e')) overlaySrc = "assets/images/vto_earrings.png";
+      
+      vtoOverlay.src = overlaySrc;
+      vtoModal.classList.add('show');
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+        .then(stream => {
+          vtoVideo.srcObject = stream;
+        })
+        .catch(err => {
+          alert("Camera access denied or not available.");
+          vtoModal.classList.remove('show');
+        });
+    }
+
+    closeVTO.onclick = () => {
+      vtoModal.classList.remove('show');
+      if (vtoVideo.srcObject) {
+        vtoVideo.srcObject.getTracks().forEach(track => track.stop());
+      }
+    };
+
+    // Transform logic
+    function updateTransform() {
+      vtoOverlay.style.width = vtoScale.value + 'px';
+      vtoOverlay.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px)) rotate(${vtoRotate.value}deg)`;
+    }
+
+    vtoScale.oninput = updateTransform;
+    vtoRotate.oninput = updateTransform;
+
+    // Dragging logic
+    vtoOverlay.addEventListener('mousedown', startDrag);
+    vtoOverlay.addEventListener('touchstart', startDrag);
+    window.addEventListener('mousemove', drag);
+    window.addEventListener('touchmove', drag);
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchend', endDrag);
+
+    function startDrag(e) {
+      isDragging = true;
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      startX = clientX - posX;
+      startY = clientY - posY;
+      e.preventDefault();
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      posX = clientX - startX;
+      posY = clientY - startY;
+      updateTransform();
+    }
+
+    function endDrag() {
+      isDragging = false;
+    }
+
     renderFeatured(); renderCart();
   </script>
 </body>
