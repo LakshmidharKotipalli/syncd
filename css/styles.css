@@ -933,3 +933,57 @@ footer {
   background: var(--accent);
   color: white;
 }
+
+/* VTO SELECTION STRIP */
+.vto-selection {
+  padding: 15px 40px;
+  background: white;
+  border-bottom: 1px solid var(--bg-soft);
+  overflow-x: auto;
+  display: flex;
+  gap: 15px;
+  white-space: nowrap;
+}
+
+.vto-selection::-webkit-scrollbar {
+  height: 4px;
+}
+
+.vto-selection::-webkit-scrollbar-thumb {
+  background: var(--accent-light);
+  border-radius: 2px;
+}
+
+.vto-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-soft);
+  flex-shrink: 0;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  transition: var(--transition);
+  position: relative;
+}
+
+.vto-thumb:hover, .vto-thumb.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(196, 154, 108, 0.3);
+}
+
+.vto-thumb.active::after {
+  content: '✓';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--accent);
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

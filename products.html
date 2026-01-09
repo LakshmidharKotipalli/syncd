@@ -58,6 +58,9 @@
         <video id="vtoVideo" autoplay playsinline muted></video>
         <img id="vtoOverlay" class="vto-overlay-item" src="" alt="Jewelry Overlay" />
       </div>
+      <div class="vto-selection" id="vtoSelection">
+        <!-- Javascript populated -->
+      </div>
       <div class="vto-controls">
         <div class="control-group">
           <label>Scale</label>
@@ -142,12 +145,26 @@
     let posX = 0, posY = 0;
 
     function openVTO(id) {
-      const p = products.find(x => x.id === id);
+      const allAvailable = [...productData.necklace, ...productData.earrings];
+      const p = allAvailable.find(x => x.id === id);
 
       if (!p || !p.vtoImage) {
         alert("Virtual try-on is not available for this item (Bracelets coming soon).");
         return;
       }
+
+      // Populate selection strip
+      const strip = document.getElementById('vtoSelection');
+      strip.innerHTML = "";
+      allAvailable.forEach(item => {
+        if (item.vtoImage) {
+          const thumb = document.createElement('div');
+          thumb.className = `vto-thumb ${item.id === id ? 'active' : ''}`;
+          thumb.style.backgroundImage = `url('${item.image}')`;
+          thumb.onclick = () => switchVTO(item.id);
+          strip.appendChild(thumb);
+        }
+      });
 
       vtoOverlay.src = p.vtoImage;
       vtoModal.classList.add('show');
@@ -160,6 +177,17 @@
           alert("Camera access denied or not available.");
           vtoModal.classList.remove('show');
         });
+    }
+
+    function switchVTO(id) {
+      const allAvailable = [...productData.necklace, ...productData.earrings];
+      const p = allAvailable.find(x => x.id === id);
+      if (p && p.vtoImage) {
+        vtoOverlay.src = p.vtoImage;
+        document.querySelectorAll('.vto-thumb').forEach(t => t.classList.remove('active'));
+        const activeThumb = Array.from(document.querySelectorAll('.vto-thumb')).find(t => t.style.backgroundImage.includes(p.image));
+        if (activeThumb) activeThumb.classList.add('active');
+      }
     }
 
     closeVTO.onclick = () => {
