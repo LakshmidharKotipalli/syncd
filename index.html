@@ -48,6 +48,65 @@
 
 <div class="cart-overlay" id="cartOverlay"></div>
 
+<script>
+  // ACCOUNT DROPDOWN
+  const accountBtn = document.getElementById("accountBtn");
+  const accountMenu = document.getElementById("accountMenu");
+
+  accountBtn.addEventListener("click", () => {
+    accountMenu.style.display =
+      accountMenu.style.display === "flex" ? "none" : "flex";
+  });
+
+  // CART DRAWER
+  const cartBtn = document.getElementById("cartBtn");
+  const cartDrawer = document.getElementById("cartDrawer");
+  const cartOverlay = document.getElementById("cartOverlay");
+  const closeCart = document.getElementById("closeCart");
+
+  cartBtn.onclick = () => {
+    cartDrawer.classList.add("open");
+    cartOverlay.classList.add("show");
+    renderCart();
+  };
+
+  closeCart.onclick = closeCartDrawer;
+  cartOverlay.onclick = closeCartDrawer;
+
+  function closeCartDrawer() {
+    cartDrawer.classList.remove("open");
+    cartOverlay.classList.remove("show");
+  }
+
+  // CART LOGIC
+  function renderCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+    const cartCount = document.getElementById("cartCount");
+
+    cartItems.innerHTML = "";
+    let total = 0;
+    let count = 0;
+
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      count += item.quantity;
+
+      cartItems.innerHTML += `
+        <div class="cart-item">
+          <span>${item.name} x ${item.quantity}</span>
+          <span>$${item.price * item.quantity}</span>
+        </div>
+      `;
+    });
+
+    cartTotal.textContent = total.toFixed(2);
+    cartCount.textContent = count;
+  }
+
+  renderCart();
+</script>
 
 <body>
 
