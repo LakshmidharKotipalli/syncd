@@ -5,6 +5,7 @@ const productData = {
             name: "Aeterna Diamond Pendant",
             price: 4200,
             image: "assets/images/luxury_necklace_1_1767966878616.png",
+            vtoImage: "assets/images/vto_necklace_generic.png",
             badge: "Signature",
             description: "A brilliant round-cut diamond suspended on an 18k white gold delicate chain. A timeless statement of elegance."
         },
@@ -13,6 +14,7 @@ const productData = {
             name: "Midnight Sapphire Lariat",
             price: 6800,
             image: "assets/images/luxury_necklace_2.png",
+            vtoImage: "assets/images/vto_necklace_sapphire.png",
             badge: "Rare",
             description: "A breathtaking lariat featuring deep blue Ceylon sapphires and brilliant diamond accents on a platinum chain."
         },
@@ -21,6 +23,7 @@ const productData = {
             name: "Opulent Pearl Strand",
             price: 3500,
             image: "assets/images/luxury_jewelry_catalog_2.png",
+            vtoImage: "assets/images/vto_necklace_generic.png",
             badge: "Classic",
             description: "A classic strand of luminous South Sea pearls, graduated for a perfect drape with a diamond-set clasp."
         },
@@ -29,6 +32,7 @@ const productData = {
             name: "Celestial Gold Choker",
             price: 2800,
             image: "assets/images/luxury_necklace_1_1767966878616.png",
+            vtoImage: "assets/images/vto_necklace_generic.png",
             badge: "Handcrafted",
             description: "Interlocking textures of solid 24k gold, designed to catch the light at every angle. Modern luxury at its peak."
         },
@@ -37,6 +41,7 @@ const productData = {
             name: "Rose Gold Infinity",
             price: 1950,
             image: "assets/images/luxury_jewelry_collage.png",
+            vtoImage: "assets/images/vto_necklace_generic.png",
             badge: "New",
             description: "A delicate infinity symbol encrusted with micro-pave diamonds on an 18k rose gold chain."
         },
@@ -45,6 +50,7 @@ const productData = {
             name: "Heirloom Emerald Drop",
             price: 7500,
             image: "assets/images/luxury_necklace_1_1767966878616.png",
+            vtoImage: "assets/images/vto_necklace_generic.png",
             badge: "Elite",
             description: "A deep green Zambian emerald surrounded by a halo of micro-pave diamonds. A piece for generations."
         },
@@ -53,6 +59,7 @@ const productData = {
             name: "Infinite Platinum Chain",
             price: 1200,
             image: "assets/images/luxury_necklace_1_1767966878616.png",
+            vtoImage: "assets/images/vto_necklace_generic.png",
             badge: "Minimalist",
             description: "Pure platinum links crafted with precision. Substantial yet understated, the perfect daily companion."
         },
@@ -61,6 +68,7 @@ const productData = {
             name: "Celestial Sapphire Drop",
             price: 5400,
             image: "assets/images/luxury_necklace_2.png",
+            vtoImage: "assets/images/vto_necklace_sapphire.png",
             badge: "Exclusive",
             description: "A statement sapphire teardrop suspended from a delicate diamond-cut platinum chain."
         }
@@ -71,6 +79,7 @@ const productData = {
             name: "Luna Pearl Studs",
             price: 950,
             image: "assets/images/luxury_earrings_1_1767966892753.png",
+            vtoImage: "assets/images/vto_earrings_generic.png",
             badge: "Classic",
             description: "Perfectly matched South Sea pearls with 18k yellow gold mountings. Lustrous and sophisticated."
         },
@@ -79,6 +88,7 @@ const productData = {
             name: "Cascade Diamond Drops",
             price: 8900,
             image: "assets/images/luxury_earrings_2.png",
+            vtoImage: "assets/images/vto_earrings_generic.png",
             badge: "Red Carpet",
             description: "Cascading pear-cut diamonds that dance with every movement. Total weight 5 carats in platinum."
         },
@@ -87,6 +97,7 @@ const productData = {
             name: "Emerald Eye Studs",
             price: 3200,
             image: "assets/images/luxury_jewelry_catalog_2.png",
+            vtoImage: "assets/images/vto_earrings_emerald.png",
             badge: "Vibrant",
             description: "Asscher-cut Colombian emeralds set in 18k yellow gold. A striking pop of color and luxury."
         },
@@ -95,6 +106,7 @@ const productData = {
             name: "Solstice Drop Earrings",
             price: 2100,
             image: "assets/images/luxury_earrings_1_1767966892753.png",
+            vtoImage: "assets/images/vto_earrings_generic.png",
             badge: "Bestseller",
             description: "Art deco inspired drops with geometric patterns and delicate filigree work in rose gold."
         },
@@ -103,6 +115,7 @@ const productData = {
             name: "Aura Diamond Hoops",
             price: 4500,
             image: "assets/images/luxury_earrings_1_1767966892753.png",
+            vtoImage: "assets/images/vto_earrings_generic.png",
             badge: "Signature",
             description: "Inside-outside diamond hoops featuring 2 carats of brilliant-cut diamonds. Radiance from every direction."
         },
@@ -111,6 +124,7 @@ const productData = {
             name: "Midnight Teardrops",
             price: 3800,
             image: "assets/images/luxury_earrings_2.png",
+            vtoImage: "assets/images/vto_earrings_generic.png",
             badge: "Polished",
             description: "Elegant teardrop earrings featuring rare black diamonds surrounded by a brilliant white gold halo."
         },
@@ -119,6 +133,7 @@ const productData = {
             name: "Golden Orbit Hoops",
             price: 1500,
             image: "assets/images/luxury_earrings_1_1767966892753.png",
+            vtoImage: "assets/images/vto_earrings_generic.png",
             badge: "Essential",
             description: "Substantial 18k gold hoops with a unique hammered texture that catches the light beautifully."
         },
@@ -127,6 +142,7 @@ const productData = {
             name: "Nova Sapphire Studs",
             price: 5200,
             image: "assets/images/luxury_earrings_1_1767966892753.png",
+            vtoImage: "assets/images/vto_earrings_generic.png",
             badge: "Limited",
             description: "Deep blue royal sapphires set in a starburst of diamonds. Captivating and majestic."
         }
@@ -137,6 +153,7 @@ const productData = {
             name: "Elysian Diamond Bangle",
             price: 5400,
             image: "assets/images/luxury_bracelet_1_1767966908812.png",
+            vtoImage: "",
             badge: "Exclusive",
             description: "A sleek 18k white gold bangle encrusted with a double row of princess-cut diamonds. Architectural beauty."
         },
@@ -145,6 +162,7 @@ const productData = {
             name: "Royal Amethyst Cuff",
             price: 4800,
             image: "assets/images/luxury_bracelet_2.png",
+            vtoImage: "",
             badge: "Artisanal",
             description: "A hand-hammered 24k gold cuff featuring five raw, deep purple amethyst stones. A bold statement."
         },
@@ -153,6 +171,7 @@ const productData = {
             name: "Diamond Line Bracelet",
             price: 9800,
             image: "assets/images/luxury_jewelry_catalog_2.png",
+            vtoImage: "",
             badge: "Iconic",
             description: "The classic tennis bracelet redefined. 5 carats of VVS diamonds in a seamless platinum mounting."
         },
@@ -161,6 +180,7 @@ const productData = {
             name: "Seraphina Gold Cuff",
             price: 3200,
             image: "assets/images/luxury_bracelet_1_1767966908812.png",
+            vtoImage: "",
             badge: "Handcrafted",
             description: "A masterpiece of gold work, this cuff features intricate patterns inspired by ancient artistry."
         },
@@ -169,6 +189,7 @@ const productData = {
             name: "Amara Chain Link",
             price: 1500,
             image: "assets/images/luxury_bracelet_1_1767966908812.png",
+            vtoImage: "",
             badge: "Modern",
             description: "Sturdy 14k gold links with a high-polish finish. Features our signature 'sync'd' hidden clasp."
         },
@@ -177,6 +198,7 @@ const productData = {
             name: "Zenith Tennis Bracelet",
             price: 12500,
             image: "assets/images/luxury_bracelet_1_1767966908812.png",
+            vtoImage: "",
             badge: "Elite",
             description: "The ultimate luxury. 8 carats of exceptional diamonds set in a flexible platinum mounting."
         },
@@ -185,6 +207,7 @@ const productData = {
             name: "Rose Gold Open Bangle",
             price: 2600,
             image: "assets/images/luxury_jewelry_catalog_2.png",
+            vtoImage: "",
             badge: "Refined",
             description: "A minimalist open bangle in 18k rose gold, finished with two brilliant-cut diamond end-caps."
         },
@@ -193,6 +216,7 @@ const productData = {
             name: "Onyx Link Bracelet",
             price: 3100,
             image: "assets/images/luxury_bracelet_2.png",
+            vtoImage: "",
             badge: "Bold",
             description: "Deep black onyx links interspersed with solid yellow gold bars. A sophisticated masculine/unisex piece."
         }

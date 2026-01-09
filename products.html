@@ -18,7 +18,7 @@
       <a href="products.html?category=bracelet">Bracelets</a>
     </div>
     <a href="index.html" class="nav-logo">
-      <img src="assets/images/luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
+      <img src="assets/images/syncd_logo_new.png" alt="sync’d logo" />
     </a>
     <div class="nav-actions">
       <div class="account-wrapper">
@@ -142,11 +142,14 @@
     let posX = 0, posY = 0;
 
     function openVTO(id) {
-      // Determine which overlay image to use based on type
-      let overlaySrc = "assets/images/vto_necklace.png";
-      if (id.startsWith('e')) overlaySrc = "assets/images/vto_earrings.png";
+      const p = products.find(x => x.id === id);
 
-      vtoOverlay.src = overlaySrc;
+      if (!p || !p.vtoImage) {
+        alert("Virtual try-on is not available for this item (Bracelets coming soon).");
+        return;
+      }
+
+      vtoOverlay.src = p.vtoImage;
       vtoModal.classList.add('show');
 
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
