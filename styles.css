@@ -171,7 +171,7 @@ header {
 }
 
 .logo {
-  height: 100px;
+  height: 200px;
 }
 
 .search-area input {
@@ -204,8 +204,8 @@ header {
 
 .cart-count {
   position: absolute;
-  top: -6px;
-  right: -10px;
+  top: -3px;
+  right: -7px;
   background: #c49a6c;
   color: #fff;
   font-size: 11px;
@@ -233,7 +233,7 @@ header {
 
 .account-dropdown {
   position: absolute;
-  right: 0;
+  right: +3;
   top: 38px;
   background: #fff;
   border-radius: 10px;
