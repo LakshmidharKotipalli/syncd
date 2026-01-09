@@ -6,10 +6,52 @@
 }
 
 body {
-  font-family: 'Playfair Display', serif;
-  background-color: #f6f1ec;
-  color: #4a2d1f;
+  background: #f6efe8;
+  font-family: "Georgia", serif;
 }
+
+.category-title {
+  text-align: center;
+  font-size: 42px;
+  letter-spacing: 2px;
+  margin: 40px 0;
+  color: #5a3b2e;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+  padding: 40px 60px;
+}
+
+.product-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  border-radius: 16px;
+  background: #f3eee8;
+  margin-bottom: 15px;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #5a3b2e;
+}
+
 
 /* HERO SECTION */
 .hero {
