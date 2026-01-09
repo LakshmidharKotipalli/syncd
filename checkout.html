@@ -5,76 +5,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sync’d | Checkout</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="assets/products.js"></script>
 </head>
 
 <body class="bg-creme">
-    <nav class="navbar scrolled">
-        <a href="index.html" class="nav-logo">
-            <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
-        </a>
-    </nav>
-
+    <nav class="navbar scrolled"><a href="index.html" class="nav-logo"><img
+                src="assets/images/luxury_jewelry_logo_1767966924039.png" alt="logo" /></a></nav>
     <main style="padding-top: 150px; text-align: center;">
-        <section class="featured">
-            <div class="section-header">
-                <span>Secure Secure</span>
-                <h2>Checkout</h2>
+        <section class="featured" id="checkoutSection">
+            <div class="section-header"><span>Secure Checkout</span>
+                <h2>Finalize Acquisition</h2>
             </div>
             <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1.2fr; gap: 40px;">
-                <div
-                    style="background: white; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-sm); text-align: left;">
-                    <h3 style="margin-bottom: 30px; font-family: 'Playfair Display';">Shipping Information</h3>
-                    <form style="display: grid; gap: 20px;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                            <input type="text" placeholder="First Name"
-                                style="padding: 15px; border-radius: 10px; border: 1px solid var(--bg-soft);" required>
-                            <input type="text" placeholder="Last Name"
-                                style="padding: 15px; border-radius: 10px; border: 1px solid var(--bg-soft);" required>
-                        </div>
+                <div style="background: white; padding: 40px; border-radius: 20px; text-align: left;">
+                    <form id="checkoutForm" style="display: grid; gap: 20px;">
+                        <input type="text" placeholder="Full Name"
+                            style="padding: 15px; border-radius: 10px; border: 1px solid var(--bg-soft);" required>
+                        <input type="email" placeholder="Email"
+                            style="padding: 15px; border-radius: 10px; border: 1px solid var(--bg-soft);" required>
                         <input type="text" placeholder="Address"
                             style="padding: 15px; border-radius: 10px; border: 1px solid var(--bg-soft);" required>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                            <input type="text" placeholder="City"
-                                style="padding: 15px; border-radius: 10px; border: 1px solid var(--bg-soft);" required>
-                            <input type="text" placeholder="Zip Code"
-                                style="padding: 15px; border-radius: 10px; border: 1px solid var(--bg-soft);" required>
-                        </div>
-                        <button type="submit" class="btn-primary">Pay Now</button>
+                        <button type="submit" class="btn-primary">Place Order</button>
                     </form>
                 </div>
                 <div style="background: var(--bg-soft); padding: 40px; border-radius: 20px; text-align: left;">
-                    <h4 style="margin-bottom: 20px;">Summary</h4>
+                    <h4>Summary</h4>
                     <div id="checkoutItems"></div>
-                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
-                    <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 18px;">
-                        <span>Total</span>
-                        <span>$<span id="checkoutTotal">0</span></span>
-                    </div>
+                    <hr style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                        <span>Total</span><span>$<span id="checkoutTotal">0</span></span></div>
                 </div>
             </div>
         </section>
+        <section id="successSection" style="display: none; padding: 100px 5%;">
+            <div style="max-width: 600px; margin: 0 auto; background: white; padding: 60px; border-radius: 30px;">
+                <h2>Order Confirmed</h2>
+                <p>Thank you for your acquisition.</p><a href="index.html" class="btn-primary">Return Home</a>
+            </div>
+        </section>
     </main>
-
     <script>
         function renderCheckout() {
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const container = document.getElementById('checkoutItems');
-            const totalSpan = document.getElementById('checkoutTotal');
-            let total = 0;
-
-            container.innerHTML = "";
-            cart.forEach(item => {
-                total += item.price * item.quantity;
-                container.innerHTML += `
-          <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
-            <span>${item.name} x ${item.quantity}</span>
-            <span>$${(item.price * item.quantity).toLocaleString()}</span>
-          </div>
-        `;
-            });
-            totalSpan.textContent = total.toLocaleString();
+            const c = Cart.get(); const items = document.getElementById('checkoutItems');
+            if (c.length === 0 && !document.getElementById('successSection').style.display) { window.location.href = 'index.html'; return; }
+            items.innerHTML = "";
+            c.forEach(item => { items.innerHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 12px;"><span>${item.name} x ${item.quantity}</span><span>$${(item.price * item.quantity).toLocaleString()}</span></div>`; });
+            document.getElementById('checkoutTotal').textContent = Cart.getTotal().toLocaleString();
         }
+        document.getElementById('checkoutForm').onsubmit = (e) => {
+            e.preventDefault(); const btn = e.target.querySelector('button'); btn.textContent = "Processing..."; btn.disabled = true;
+            setTimeout(() => { Cart.clear(); document.getElementById('checkoutSection').style.display = 'none'; document.getElementById('successSection').style.display = 'block'; }, 1500);
+        };
         renderCheckout();
     </script>
 </body>

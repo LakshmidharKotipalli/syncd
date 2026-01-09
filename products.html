@@ -5,231 +5,102 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>sync’d | Shop Jewelry</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="luxury_jewelry_logo_1767966924039.png" type="image/png">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="assets/images/luxury_jewelry_logo_1767966924039.png" type="image/png">
+  <script src="assets/products.js"></script>
 </head>
 
 <body>
-
-  <!-- NAVBAR -->
   <nav class="navbar scrolled" id="navbar">
     <div class="nav-links">
       <a href="products.html?category=necklace">Necklaces</a>
       <a href="products.html?category=earrings">Earrings</a>
       <a href="products.html?category=bracelet">Bracelets</a>
     </div>
-
     <a href="index.html" class="nav-logo">
-      <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
+      <img src="assets/images/luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
     </a>
-
     <div class="nav-actions">
       <div class="account-wrapper">
-        <button class="icon-btn" id="accountBtn">
-          <span>Profile</span>
-        </button>
+        <button class="icon-btn" id="accountBtn">Profile</button>
         <div class="account-dropdown" id="accountMenu">
           <a href="profile.html">My Profile</a>
           <a href="orders.html">My Orders</a>
           <a href="#">Logout</a>
         </div>
       </div>
-
       <button class="icon-btn cart-btn" id="cartBtn">
-        <span>Cart</span>
-        <span class="cart-count" id="cartCount">0</span>
+        Cart <span class="cart-count" id="cartCount">0</span>
       </button>
     </div>
   </nav>
 
-  <!-- CART DRAWER -->
   <div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
-      <h3>Your Collection</h3>
-      <button id="closeCart">✕</button>
+      <h3>Collection</h3><button id="closeCart">✕</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-footer">
-      <div class="cart-total">
-        <span>Total</span>
-        <span>$<span id="cartTotal">0</span></span>
-      </div>
-      <a href="checkout.html" class="btn-primary" style="display: block; text-align: center;">Proceed to Checkout</a>
+      <div class="cart-total"><span>Total</span><span>$<span id="cartTotal">0</span></span></div>
+      <a href="checkout.html" class="btn-primary">Checkout</a>
     </div>
   </div>
   <div class="cart-overlay" id="cartOverlay"></div>
 
   <main style="padding-top: 150px;">
     <section class="featured">
-      <div class="section-header">
-        <span id="category-path">Collection</span>
+      <div class="section-header"><span id="category-path">Collection</span>
         <h2 id="category-title">All Products</h2>
       </div>
-      <div class="product-grid" id="productGrid">
-        <!-- Products will be injected here -->
-      </div>
+      <div class="product-grid" id="productGrid"></div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
-        <p>Crafting timeless elegance for the modern individual. Experience luxury synchronized with your life.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Collection</h4>
-        <ul>
-          <li><a href="products.html?category=necklace">Necklaces</a></li>
-          <li><a href="products.html?category=earrings">Earrings</a></li>
-          <li><a href="products.html?category=bracelet">Bracelets</a></li>
-          <li><a href="#">New Arrivals</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">Our Story</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Craftsmanship</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-links">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="#">Support Center</a></li>
-          <li><a href="#">Shipping & Returns</a></li>
-          <li><a href="#">Store Locator</a></li>
-          <li><a href="#">Email Us</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 sync’d Luxury Jewelry. All rights reserved.</p>
-      <div class="social-links">Instagram / Pinterest / Facebook</div>
-    </div>
-  </footer>
-
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category') || 'jewelry';
-    const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
-
-    document.getElementById('category-title').textContent = categoryTitle + 's';
-    document.getElementById('category-path').textContent = 'Collections / ' + categoryTitle;
-
-    // IMAGES MAPPING
-    const catImages = {
-      necklace: "luxury_necklace_1_1767966878616.png",
-      earrings: "luxury_earrings_1_1767966892753.png",
-      bracelet: "luxury_bracelet_1_1767966908812.png",
-      jewelry: "luxury_jewelry_hero_bg_1767966864789.png"
-    };
+    const category = urlParams.get('category') || 'necklace';
+    document.getElementById('category-title').textContent = category.charAt(0).toUpperCase() + category.slice(1) + 's';
 
     const container = document.getElementById('productGrid');
-    const displayImg = catImages[category] || catImages.jewelry;
+    const products = productData[category] || productData.necklace;
 
-    for (let i = 1; i <= 9; i++) {
-      const price = Math.floor(Math.random() * (2000 - 500) + 500);
-      const name = `${categoryTitle} ${String.fromCharCode(64 + i)}`;
-
+    products.forEach(p => {
       container.innerHTML += `
         <div class="product-card">
-          <div class="product-image">
-            <img src="${displayImg}" alt="${name}" />
-            <div class="product-badge">Handcrafted</div>
-          </div>
+          <div class="product-image"><img src="${p.image}" alt="${p.name}" /><div class="product-badge">${p.badge}</div></div>
           <div class="product-details">
-            <h4>${name}</h4>
-            <p class="price">$${price.toLocaleString()}</p>
+            <h4>${p.name}</h4><p style="font-size: 11px; margin-bottom: 12px; height: 32px; overflow: hidden;">${p.description}</p><p class="price">$${p.price.toLocaleString()}</p>
             <div class="product-actions">
-              <div class="qty-control">
-                <button onclick="changeInternalQty(this, -1)">−</button>
-                <span class="qty">1</span>
-                <button onclick="changeInternalQty(this, 1)">+</button>
-              </div>
-              <button class="add-btn" onclick="addToCart('${name}', ${price}, '${displayImg}', this)">+</button>
+              <div class="qty-control"><button onclick="chQty(this, -1)">−</button><span class="qty">1</span><button onclick="chQty(this, 1)">+</button></div>
+              <button class="add-btn" onclick="hAddToCart('${p.id}', this)">+</button>
             </div>
           </div>
-        </div>
-      `;
-    }
+        </div>`;
+    });
 
-    // Shared functionality (usually better in a separate js file)
-    function changeInternalQty(btn, change) {
-      const span = btn.parentElement.querySelector('.qty');
-      let val = parseInt(span.textContent) + change;
-      if (val < 1) val = 1;
-      span.textContent = val;
+    function chQty(btn, ch) { let s = btn.parentElement.querySelector('.qty'); let v = parseInt(s.textContent) + ch; if (v < 1) v = 1; s.textContent = v; }
+    function hAddToCart(id, btn) {
+      const p = products.find(x => x.id === id); const q = parseInt(btn.parentElement.querySelector('.qty').textContent);
+      Cart.add(p, q); btn.innerHTML = "✓"; setTimeout(() => btn.innerHTML = "+", 1000);
     }
-
-    function addToCart(name, price, image, btn) {
-      const qty = parseInt(btn.parentElement.querySelector('.qty').textContent);
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const existing = cart.find(item => item.name === name);
-      if (existing) {
-        existing.quantity += qty;
-      } else {
-        cart.push({ name, price, image, quantity: qty });
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-      btn.parentElement.querySelector('.qty').textContent = 1;
-      renderCart();
-      btn.innerHTML = "✓";
-      setTimeout(() => btn.innerHTML = "+", 1000);
-    }
-
     function renderCart() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const cartItems = document.getElementById("cartItems");
-      const cartTotal = document.getElementById("cartTotal");
-      const cartCount = document.getElementById("cartCount");
-      cartItems.innerHTML = "";
-      let total = 0;
-      let count = 0;
-      cart.forEach((item, index) => {
-        total += item.price * item.quantity;
-        count += item.quantity;
-        cartItems.innerHTML += `
+      const c = Cart.get(); const items = document.getElementById("cartItems");
+      items.innerHTML = "";
+      c.forEach((item, i) => {
+        items.innerHTML += `
           <div class="cart-item">
             <div class="cart-item-img" style="background-image: url('${item.image}'); background-size: cover;"></div>
             <div class="cart-item-info">
-              <h5>${item.name}</h5>
-              <p>$${item.price.toLocaleString()}</p>
-              <div class="qty-control" style="margin-top: 10px; width: fit-content; padding: 5px 10px;">
-                <button onclick="updateQty(${index}, -1)">−</button>
-                <span>${item.quantity}</span>
-                <button onclick="updateQty(${index}, 1)">+</button>
-              </div>
+              <h5>${item.name}</h5><p>$${item.price.toLocaleString()}</p>
+              <div class="qty-control"><button onclick="Cart.updateQty(${i}, -1)">−</button><span>${item.quantity}</span><button onclick="Cart.updateQty(${i}, 1)">+</button></div>
             </div>
-          </div>
-        `;
+          </div>`;
       });
-      cartTotal.textContent = total.toLocaleString();
-      cartCount.textContent = count;
+      document.getElementById("cartTotal").textContent = Cart.getTotal().toLocaleString();
+      document.getElementById("cartCount").textContent = Cart.getCount();
     }
+    window.addEventListener('cartUpdated', renderCart);
 
-    function updateQty(index, change) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart[index].quantity += change;
-      if (cart[index].quantity < 1) cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
-
-    // Navbar scroll
-    window.addEventListener('scroll', () => {
-      const navbar = document.getElementById('navbar');
-      if (window.scrollY > 50) navbar.classList.add('scrolled');
-      else {
-        // stay scrolled on products page for better visibility or handle transparency
-        navbar.classList.add('scrolled');
-      }
-    });
-
-    // Cart and account logic (same as index)
     const cartBtn = document.getElementById("cartBtn");
     const cartDrawer = document.getElementById("cartDrawer");
     const cartOverlay = document.getElementById("cartOverlay");

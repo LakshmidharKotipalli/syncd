@@ -5,34 +5,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sync’d | Profile</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="assets/products.js"></script>
 </head>
 
 <body class="bg-creme">
-    <nav class="navbar scrolled">
-        <a href="index.html" class="nav-logo">
-            <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
-        </a>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-links">
+            <a href="products.html?category=necklace">Necklaces</a>
+            <a href="products.html?category=earrings">Earrings</a>
+            <a href="products.html?category=bracelet">Bracelets</a>
+        </div>
+        <a href="index.html" class="nav-logo"><img src="assets/images/luxury_jewelry_logo_1767966924039.png"
+                alt="logo" /></a>
+        <div class="nav-actions">
+            <button class="icon-btn cart-btn" onclick="window.location.href='index.html'">Cart <span class="cart-count"
+                    id="cartCount">0</span></button>
+        </div>
     </nav>
-
     <main style="padding-top: 150px; text-align: center;">
         <section class="featured">
-            <div class="section-header">
-                <span>Account Details</span>
+            <div class="section-header"><span>Account</span>
                 <h2>My Profile</h2>
             </div>
             <div
-                style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-md);">
-                <div
-                    style="width: 100px; height: 100px; background: var(--bg-soft); border-radius: 50%; margin: 0 auto 20px;">
-                </div>
+                style="max-width: 600px; margin: 0 auto; background: white; padding: 60px; border-radius: 30px; box-shadow: var(--shadow-lg);">
                 <h3 style="margin-bottom: 20px;">L. Dharkotipalli</h3>
-                <p style="color: var(--primary-light); margin-bottom: 10px;">Email: member@syncd.luxury</p>
-                <p style="color: var(--primary-light); margin-bottom: 30px;">Membership: Diamond Collector</p>
-                <a href="index.html" class="btn-primary">Back to Boutique</a>
+                <p style="color: var(--primary-light);">Membership: <span
+                        style="color: var(--accent); font-weight: 600;">Diamond Collector</span></p>
+                <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <a href="orders.html" class="btn-outline">Orders</a>
+                    <a href="index.html" class="btn-primary">Boutique</a>
+                </div>
             </div>
         </section>
     </main>
+    <script>
+        document.getElementById('cartCount').textContent = Cart.getCount();
+    </script>
 </body>
 
 </html>

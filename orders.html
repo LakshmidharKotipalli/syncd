@@ -5,31 +5,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sync’d | Orders</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="assets/products.js"></script>
 </head>
 
 <body class="bg-creme">
-    <nav class="navbar scrolled">
-        <a href="index.html" class="nav-logo">
-            <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
-        </a>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-links">
+            <a href="products.html?category=necklace">Necklaces</a>
+            <a href="products.html?category=earrings">Earrings</a>
+            <a href="products.html?category=bracelet">Bracelets</a>
+        </div>
+        <a href="index.html" class="nav-logo"><img src="assets/images/luxury_jewelry_logo_1767966924039.png"
+                alt="logo" /></a>
+        <div class="nav-actions">
+            <button class="icon-btn cart-btn" onclick="window.location.href='index.html'">Cart <span class="cart-count"
+                    id="cartCount">0</span></button>
+        </div>
     </nav>
-
     <main style="padding-top: 150px; text-align: center;">
         <section class="featured">
-            <div class="section-header">
-                <span>Purchase History</span>
+            <div class="section-header"><span>History</span>
                 <h2>My Orders</h2>
             </div>
-            <div
-                style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-md);">
-                <p style="color: var(--primary-light);">You haven't placed any orders yet. Start your journey with our
-                    signature collections.</p>
-                <br>
-                <a href="products.html" class="btn-primary">Shop Now</a>
+            <div style="max-width: 800px; margin: 0 auto; background: white; padding: 60px; border-radius: 30px;">
+                <p>Your journey with us is just beginning.</p>
+                <a href="products.html" class="btn-primary" style="margin-top: 20px;">Explore Boutique</a>
             </div>
         </section>
     </main>
+    <script>
+        document.getElementById('cartCount').textContent = Cart.getCount();
+    </script>
 </body>
 
 </html>
