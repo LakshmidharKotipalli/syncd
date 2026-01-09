@@ -1,8 +1,10 @@
 syncd-website/
 │
-├── index.html            # Main HTML file (homepage)
-├── styles.css            # CSS file for styling
-├── assets/               # Folder for images and other media
-│   ├── hero-background.jpg.jpg
-│   └── logo1.png
-└── README.md             # Project documentation
+├── index.html
+├── necklace.html
+├── earrings.html
+├── bracelet.html
+├── styles.css                # Folder for images and other media
+├── hero-background.jpg.jpg
+      └── logo1.png
+└── README.md                 # Project documentation
