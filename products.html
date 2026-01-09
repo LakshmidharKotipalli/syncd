@@ -1,106 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>sync’d | Products</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sync’d | Shop Jewelry</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="luxury_jewelry_logo_1767966924039.png" type="image/png">
 </head>
+
 <body>
 
-<header>
-  <img src="logo1.png" alt="sync’d logo" class="logo-header" />
-</header>
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-links">
+      <a href="products.html?category=necklace">Necklaces</a>
+      <a href="products.html?category=earrings">Earrings</a>
+      <a href="products.html?category=bracelet">Bracelets</a>
+    </div>
 
-<main>
-  <h1 id="category-title"></h1>
-  <div class="product-grid" id="products"></div>
-</main>
+    <a href="index.html" class="nav-logo">
+      <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
+    </a>
 
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get('category');
-  const categoryTitle = category ? category.toUpperCase() : 'PRODUCTS';
-  document.getElementById('category-title').textContent = categoryTitle;
+    <div class="nav-actions">
+      <div class="account-wrapper">
+        <button class="icon-btn" id="accountBtn">
+          <span>Profile</span>
+        </button>
+        <div class="account-dropdown" id="accountMenu">
+          <a href="profile.html">My Profile</a>
+          <a href="orders.html">My Orders</a>
+          <a href="#">Logout</a>
+        </div>
+      </div>
 
-  const productsContainer = document.getElementById('products');
+      <button class="icon-btn cart-btn" id="cartBtn">
+        <span>Cart</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
 
-  for (let i = 1; i <= 10; i++) {
-    const div = document.createElement('div');
-    div.className = 'product';
-    div.innerHTML = `
-      <div class="product-image"></div>
-      <p class="product-name">${categoryTitle} ${i}</p>
-    `;
-    productsContainer.appendChild(div);
-  }
-</script>
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Collection</h3>
+      <button id="closeCart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span>$<span id="cartTotal">0</span></span>
+      </div>
+      <a href="checkout.html" class="btn-primary" style="display: block; text-align: center;">Proceed to Checkout</a>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
 
+  <main style="padding-top: 150px;">
+    <section class="featured">
+      <div class="section-header">
+        <span id="category-path">Collection</span>
+        <h2 id="category-title">All Products</h2>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <!-- Products will be injected here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
+        <p>Crafting timeless elegance for the modern individual. Experience luxury synchronized with your life.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Collection</h4>
+        <ul>
+          <li><a href="products.html?category=necklace">Necklaces</a></li>
+          <li><a href="products.html?category=earrings">Earrings</a></li>
+          <li><a href="products.html?category=bracelet">Bracelets</a></li>
+          <li><a href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Craftsmanship</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">Support Center</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Store Locator</a></li>
+          <li><a href="#">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 sync’d Luxury Jewelry. All rights reserved.</p>
+      <div class="social-links">Instagram / Pinterest / Facebook</div>
+    </div>
+  </footer>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category') || 'jewelry';
+    const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
+
+    document.getElementById('category-title').textContent = categoryTitle + 's';
+    document.getElementById('category-path').textContent = 'Collections / ' + categoryTitle;
+
+    // IMAGES MAPPING
+    const catImages = {
+      necklace: "luxury_necklace_1_1767966878616.png",
+      earrings: "luxury_earrings_1_1767966892753.png",
+      bracelet: "luxury_bracelet_1_1767966908812.png",
+      jewelry: "luxury_jewelry_hero_bg_1767966864789.png"
+    };
+
+    const container = document.getElementById('productGrid');
+    const displayImg = catImages[category] || catImages.jewelry;
+
+    for (let i = 1; i <= 9; i++) {
+      const price = Math.floor(Math.random() * (2000 - 500) + 500);
+      const name = `${categoryTitle} ${String.fromCharCode(64 + i)}`;
+
+      container.innerHTML += `
+        <div class="product-card">
+          <div class="product-image">
+            <img src="${displayImg}" alt="${name}" />
+            <div class="product-badge">Handcrafted</div>
+          </div>
+          <div class="product-details">
+            <h4>${name}</h4>
+            <p class="price">$${price.toLocaleString()}</p>
+            <div class="product-actions">
+              <div class="qty-control">
+                <button onclick="changeInternalQty(this, -1)">−</button>
+                <span class="qty">1</span>
+                <button onclick="changeInternalQty(this, 1)">+</button>
+              </div>
+              <button class="add-btn" onclick="addToCart('${name}', ${price}, '${displayImg}', this)">+</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Shared functionality (usually better in a separate js file)
+    function changeInternalQty(btn, change) {
+      const span = btn.parentElement.querySelector('.qty');
+      let val = parseInt(span.textContent) + change;
+      if (val < 1) val = 1;
+      span.textContent = val;
+    }
+
+    function addToCart(name, price, image, btn) {
+      const qty = parseInt(btn.parentElement.querySelector('.qty').textContent);
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        cart.push({ name, price, image, quantity: qty });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      btn.parentElement.querySelector('.qty').textContent = 1;
+      renderCart();
+      btn.innerHTML = "✓";
+      setTimeout(() => btn.innerHTML = "+", 1000);
+    }
+
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+      const cartCount = document.getElementById("cartCount");
+      cartItems.innerHTML = "";
+      let total = 0;
+      let count = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        count += item.quantity;
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <div class="cart-item-img" style="background-image: url('${item.image}'); background-size: cover;"></div>
+            <div class="cart-item-info">
+              <h5>${item.name}</h5>
+              <p>$${item.price.toLocaleString()}</p>
+              <div class="qty-control" style="margin-top: 10px; width: fit-content; padding: 5px 10px;">
+                <button onclick="updateQty(${index}, -1)">−</button>
+                <span>${item.quantity}</span>
+                <button onclick="updateQty(${index}, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      cartTotal.textContent = total.toLocaleString();
+      cartCount.textContent = count;
+    }
+
+    function updateQty(index, change) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity += change;
+      if (cart[index].quantity < 1) cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else {
+        // stay scrolled on products page for better visibility or handle transparency
+        navbar.classList.add('scrolled');
+      }
+    });
+
+    // Cart and account logic (same as index)
+    const cartBtn = document.getElementById("cartBtn");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const cartOverlay = document.getElementById("cartOverlay");
+    const closeCart = document.getElementById("closeCart");
+    cartBtn.onclick = () => { cartDrawer.classList.add("open"); cartOverlay.classList.add("show"); renderCart(); };
+    closeCart.onclick = closeCartDrawer;
+    cartOverlay.onclick = closeCartDrawer;
+    function closeCartDrawer() { cartDrawer.classList.remove("open"); cartOverlay.classList.remove("show"); }
+
+    const accountBtn = document.getElementById("accountBtn");
+    const accountMenu = document.getElementById("accountMenu");
+    accountBtn.onclick = () => accountMenu.classList.toggle("show");
+
+    renderCart();
+  </script>
 </body>
+
 </html>
-
-<div class="product-card">
-  <img src="assets/necklace1.jpg" alt="Necklace 1" />
-
-  <h4>Necklace 1</h4>
-  <p class="price">$120</p>
-
-  <!-- Quantity Controls -->
-  <div class="qty-control">
-    <button onclick="changeQty(this, -1)">−</button>
-    <span class="qty">1</span>
-    <button onclick="changeQty(this, 1)">+</button>
-  </div>
-
-  <!-- Add to Cart -->
-  <button
-    class="add-to-cart"
-    onclick="addToCart('Necklace 1', 120, this)"
-  >
-    Add to Cart
-  </button>
-</div>
-
-<div class="product-card">
-  <img src="assets/necklace1.jpg" alt="Necklace 1" />
-
-  <h4>earrings 1</h4>
-  <p class="price">$120</p>
-
-  <!-- Quantity Controls -->
-  <div class="qty-control">
-    <button onclick="changeQty(this, -1)">−</button>
-    <span class="qty">1</span>
-    <button onclick="changeQty(this, 1)">+</button>
-  </div>
-
-  <!-- Add to Cart -->
-  <button
-    class="add-to-cart"
-    onclick="addToCart('earrings 1', 120, this)"
-  >
-    Add to Cart
-  </button>
-</div>
-
-<div class="product-card">
-  <img src="assets/necklace1.jpg" alt="Necklace 1" />
-
-  <h4>bracelet 1</h4>
-  <p class="price">$120</p>
-
-  <!-- Quantity Controls -->
-  <div class="qty-control">
-    <button onclick="changeQty(this, -1)">−</button>
-    <span class="qty">1</span>
-    <button onclick="changeQty(this, 1)">+</button>
-  </div>
-
-  <!-- Add to Cart -->
-  <button
-    class="add-to-cart"
-    onclick="addToCart('bracelet 1', 120, this)"
-  >
-    Add to Cart
-  </button>
-</div>

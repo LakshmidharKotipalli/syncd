@@ -1,164 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <title>sync’d | Luxury Jewelry</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sync’d | Premium Luxury Jewelry</title>
+  <meta name="description"
+    content="Discover the finest collection of luxury jewelry at sync’d. Handcrafted necklaces, earrings, and bracelets for the modern aesthetic.">
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="luxury_jewelry_logo_1767966924039.png" type="image/png">
 </head>
-  <div class="header-actions">
-
-  <!-- ACCOUNT -->
-  <div class="account-wrapper">
-    <button class="icon-btn" id="accountBtn">
-      👤 <span>Account</span>
-    </button>
-
-    <div class="account-dropdown" id="accountMenu">
-      <a href="profile.html">Profile</a>
-      <a href="orders.html">Orders</a>
-      <a href="#">Logout</a>
-    </div>
-  </div>
-
-  <!-- CART -->
-  <button class="icon-btn cart-btn" id="cartBtn">
-    🛒 <span>Cart</span>
-    <span class="cart-count" id="cartCount">0</span>
-  </button>
-
-</div>
-
-</header>
-
-  <div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header">
-    <h3>Your Cart</h3>
-    <button id="closeCart">✕</button>
-  </div>
-
-  <div class="cart-items" id="cartItems"></div>
-
-  <div class="cart-footer">
-    <p>Total: $<span id="cartTotal">0</span></p>
-    <a href="checkout.html" class="checkout-btn">Checkout</a>
-  </div>
-</div>
-
-<div class="cart-overlay" id="cartOverlay"></div>
-
-<script>
-  // ACCOUNT DROPDOWN
-  const accountBtn = document.getElementById("accountBtn");
-  const accountMenu = document.getElementById("accountMenu");
-
-  accountBtn.addEventListener("click", () => {
-    accountMenu.style.display =
-      accountMenu.style.display === "flex" ? "none" : "flex";
-  });
-
-  // CART DRAWER
-  const cartBtn = document.getElementById("cartBtn");
-  const cartDrawer = document.getElementById("cartDrawer");
-  const cartOverlay = document.getElementById("cartOverlay");
-  const closeCart = document.getElementById("closeCart");
-
-  cartBtn.onclick = () => {
-    cartDrawer.classList.add("open");
-    cartOverlay.classList.add("show");
-    renderCart();
-  };
-
-  closeCart.onclick = closeCartDrawer;
-  cartOverlay.onclick = closeCartDrawer;
-
-  function closeCartDrawer() {
-    cartDrawer.classList.remove("open");
-    cartOverlay.classList.remove("show");
-  }
-
-  // CART LOGIC
-  function renderCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const cartItems = document.getElementById("cartItems");
-    const cartTotal = document.getElementById("cartTotal");
-    const cartCount = document.getElementById("cartCount");
-
-    cartItems.innerHTML = "";
-    let total = 0;
-    let count = 0;
-
-    cart.forEach(item => {
-      total += item.price * item.quantity;
-      count += item.quantity;
-
-      cartItems.innerHTML += `
-        <div class="cart-item">
-          <span>${item.name} x ${item.quantity}</span>
-          <span>$${item.price * item.quantity}</span>
-        </div>
-      `;
-    });
-
-    cartTotal.textContent = total.toFixed(2);
-    cartCount.textContent = count;
-  }
-
-  renderCart();
-</script>
 
 <body>
 
-<section class="hero">
-  <div class="overlay"></div>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-links">
+      <a href="products.html?category=necklace">Necklaces</a>
+      <a href="products.html?category=earrings">Earrings</a>
+      <a href="products.html?category=bracelet">Bracelets</a>
+    </div>
 
-  <div class="hero-content">
-    <img src="logo1.png" alt="sync’d logo" class="logo" />
+    <a href="index.html" class="nav-logo">
+      <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
+    </a>
 
-    <div class="cta">
-      <a href="products.html?category=necklace" class="btn">NECKLACE</a>
-      <a href="products.html?category=earrings" class="btn">EAR RINGS</a>
-      <a href="products.html?category=bracelet" class="btn">BRACELET</a>
+    <div class="nav-actions">
+      <div class="account-wrapper">
+        <button class="icon-btn" id="accountBtn">
+          <span>Profile</span>
+        </button>
+        <div class="account-dropdown" id="accountMenu">
+          <a href="profile.html">My Profile</a>
+          <a href="orders.html">My Orders</a>
+          <a href="#">Logout</a>
+        </div>
+      </div>
+
+      <button class="icon-btn cart-btn" id="cartBtn">
+        <span>Cart</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Collection</h3>
+      <button id="closeCart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Items will be injected here -->
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span>$<span id="cartTotal">0</span></span>
+      </div>
+      <a href="checkout.html" class="btn-primary" style="display: block; text-align: center;">Proceed to Checkout</a>
     </div>
   </div>
-</section>
+  <div class="cart-overlay" id="cartOverlay"></div>
 
-</body>
-</html>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="luxury_jewelry_hero_bg_1767966864789.png" alt="Luxury Background" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span
+        style="text-transform: uppercase; letter-spacing: 5px; font-size: 14px; margin-bottom: 20px; display: block;">Exquisite
+        Artistry</span>
+      <h1>Elegance In <br> Every Detail</h1>
+      <p>Redefining luxury with a curated collection of timeless pieces designed to synchronize with your unique style.
+      </p>
+      <div class="hero-cta">
+        <a href="#collections" class="btn-primary">Shop Collections</a>
+        <a href="#featured" class="btn-outline">New Arrivals</a>
+      </div>
+    </div>
+  </section>
 
-<script>
-  function changeQty(button, change) {
-    const qtySpan = button.parentElement.querySelector(".qty");
-    let qty = parseInt(qtySpan.textContent);
+  <!-- CATEGORIES SECTION -->
+  <section class="categories" id="collections">
+    <div class="section-header">
+      <span>Our Collections</span>
+      <h2>Shop By Category</h2>
+    </div>
+    <div class="category-grid">
+      <div class="category-card">
+        <img src="luxury_necklace_1_1767966878616.png" alt="Necklaces" />
+        <div class="category-info">
+          <h3>Necklaces</h3>
+          <a href="products.html?category=necklace">Explore Now</a>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="luxury_earrings_1_1767966892753.png" alt="Earrings" />
+        <div class="category-info">
+          <h3>Earrings</h3>
+          <a href="products.html?category=earrings">Explore Now</a>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="luxury_bracelet_1_1767966908812.png" alt="Bracelets" />
+        <div class="category-info">
+          <h3>Bracelets</h3>
+          <a href="products.html?category=bracelet">Explore Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    qty += change;
-    if (qty < 1) qty = 1;
+  <!-- FEATURED PRODUCTS -->
+  <section class="featured" id="featured">
+    <div class="section-header">
+      <span>Curated For You</span>
+      <h2>The Signature Edit</h2>
+    </div>
+    <div class="product-grid" id="featuredProducts">
+      <!-- JavaScript will inject featured products here -->
+    </div>
+  </section>
 
-    qtySpan.textContent = qty;
-  }
+  <!-- ABOUT SECTION -->
+  <section class="about">
+    <div class="about-img">
+      <img src="luxury_jewelry_hero_bg_1767966864789.png" alt="Our Craftsmanship" />
+    </div>
+    <div class="about-text">
+      <span>Our Legacy</span>
+      <h2>Artistry & Passion</h2>
+      <p>Since our inception, sync’d has been dedicated to the pursuit of perfection. Each piece is meticulously
+        handcrafted by master artisans, blending traditional techniques with contemporary design.</p>
+      <p>We believe that jewelry is more than an accessory; it's a reflection of your story, a moment in time captured
+        in precious metals and stones.</p>
+      <a href="#" class="btn-outline">Learn More</a>
+    </div>
+  </section>
 
-  function addToCart(name, price, button) {
-    const qty = parseInt(
-      button.parentElement.querySelector(".qty").textContent
-    );
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-header">
+      <span>Client Experiences</span>
+      <h2>Voices of Elegance</h2>
+    </div>
+    <div class="testimonial-slider">
+      <div class="testimonial-card">
+        <p>"The level of detail in the necklace I purchased is simply breathtaking. It's my favorite piece for every
+          special occasion."</p>
+        <div class="testimonial-author">
+          <div class="author-img"></div>
+          <div class="author-info">
+            <h5>Eleanor Vance</h5>
+            <span>Verified Collector</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p>"Exceptional service and even more exceptional jewelry. sync’d has a unique eye for modern luxury."</p>
+        <div class="testimonial-author">
+          <div class="author-img"></div>
+          <div class="author-info">
+            <h5>Julian Thorne</h5>
+            <span>Diamond Member</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p>"I've never seen such elegant designs. The rose gold bracelet is a masterpiece of minimalist beauty."</p>
+        <div class="testimonial-author">
+          <div class="author-img"></div>
+          <div class="author-info">
+            <h5>Sophia Loren</h5>
+            <span>Artist</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="newsletter-box">
+      <h2>Join The Inner Circle</h2>
+      <p>Be the first to know about new collections and exclusive invitations.</p>
+      <form class="subscribe-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
 
-    const existing = cart.find(item => item.name === name);
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="luxury_jewelry_logo_1767966924039.png" alt="sync’d logo" />
+        <p>Crafting timeless elegance for the modern individual. Experience luxury synchronized with your life.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Collection</h4>
+        <ul>
+          <li><a href="products.html?category=necklace">Necklaces</a></li>
+          <li><a href="products.html?category=earrings">Earrings</a></li>
+          <li><a href="products.html?category=bracelet">Bracelets</a></li>
+          <li><a href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Craftsmanship</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">Support Center</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Store Locator</a></li>
+          <li><a href="#">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 sync’d Luxury Jewelry. All rights reserved.</p>
+      <div class="social-links">
+        <!-- Social icons could go here -->
+        Instagram / Pinterest / Facebook
+      </div>
+    </div>
+  </footer>
 
-    if (existing) {
-      existing.quantity += qty;
-    } else {
-      cart.push({ name, price, quantity: qty });
+  <script>
+    // NAVBAR SCROLL EFFECT
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ACCOUNT DROPDOWN
+    const accountBtn = document.getElementById("accountBtn");
+    const accountMenu = document.getElementById("accountMenu");
+
+    accountBtn.addEventListener("click", () => {
+      accountMenu.classList.toggle("show");
+    });
+
+    // Close dropdown when clicking outside
+    window.addEventListener('click', (e) => {
+      if (!accountBtn.contains(e.target) && !accountMenu.contains(e.target)) {
+        accountMenu.classList.remove("show");
+      }
+    });
+
+    // CART DRAWER
+    const cartBtn = document.getElementById("cartBtn");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const cartOverlay = document.getElementById("cartOverlay");
+    const closeCart = document.getElementById("closeCart");
+
+    cartBtn.onclick = () => {
+      cartDrawer.classList.add("open");
+      cartOverlay.classList.add("show");
+      renderCart();
+    };
+
+    closeCart.onclick = closeCartDrawer;
+    cartOverlay.onclick = closeCartDrawer;
+
+    function closeCartDrawer() {
+      cartDrawer.classList.remove("open");
+      cartOverlay.classList.remove("show");
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    // CART LOGIC
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+      const cartCount = document.getElementById("cartCount");
 
-    // Reset qty to 1
-    button.parentElement.querySelector(".qty").textContent = 1;
+      cartItems.innerHTML = "";
+      let total = 0;
+      let count = 0;
 
-    // Update cart badge
-    if (typeof renderCart === "function") renderCart();
-  }
-</script>
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        count += item.quantity;
+
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <div class="cart-item-img" style="background-image: url('${item.image}'); background-size: cover;"></div>
+            <div class="cart-item-info">
+              <h5>${item.name}</h5>
+              <p>$${item.price}</p>
+              <div class="qty-control" style="margin-top: 10px; width: fit-content; padding: 5px 10px;">
+                <button onclick="updateQty(${index}, -1)">−</button>
+                <span>${item.quantity}</span>
+                <button onclick="updateQty(${index}, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      cartTotal.textContent = total.toLocaleString();
+      cartCount.textContent = count;
+    }
+
+    function updateQty(index, change) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity += change;
+      if (cart[index].quantity < 1) {
+        cart.splice(index, 1);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    // FEATURED PRODUCTS MOCK DATA
+    const featuredList = [
+      { name: "Celestial Necklace", price: 1250, image: "luxury_necklace_1_1767966878616.png", badge: "Exclusive" },
+      { name: "Luna Pearl Earrings", price: 850, image: "luxury_earrings_1_1767966892753.png", badge: "Polished" },
+      { name: "Aura Rose Bracelet", price: 920, image: "luxury_bracelet_1_1767966908812.png", badge: "Bestseller" }
+    ];
+
+    function renderFeatured() {
+      const container = document.getElementById('featuredProducts');
+      featuredList.forEach(product => {
+        container.innerHTML += `
+          <div class="product-card">
+            <div class="product-image">
+              <img src="${product.image}" alt="${product.name}" />
+              <div class="product-badge">${product.badge}</div>
+            </div>
+            <div class="product-details">
+              <h4>${product.name}</h4>
+              <p class="price">$${product.price.toLocaleString()}</p>
+              <div class="product-actions">
+                <div class="qty-control">
+                  <button onclick="changeInternalQty(this, -1)">−</button>
+                  <span class="qty">1</span>
+                  <button onclick="changeInternalQty(this, 1)">+</button>
+                </div>
+                <button class="add-btn" onclick="addToCart('${product.name}', ${product.price}, '${product.image}', this)">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function changeInternalQty(btn, change) {
+      const span = btn.parentElement.querySelector('.qty');
+      let val = parseInt(span.textContent) + change;
+      if (val < 1) val = 1;
+      span.textContent = val;
+    }
+
+    function addToCart(name, price, image, btn) {
+      const qty = parseInt(btn.parentElement.querySelector('.qty').textContent);
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.name === name);
+
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        cart.push({ name, price, image, quantity: qty });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      btn.parentElement.querySelector('.qty').textContent = 1;
+
+      // Update count immediately
+      renderCart();
+
+      // Visual feedback
+      btn.innerHTML = "✓";
+      setTimeout(() => btn.innerHTML = "+", 1000);
+    }
+
+    renderFeatured();
+    renderCart();
+
+  </script>
+</body>
+
+</html>
