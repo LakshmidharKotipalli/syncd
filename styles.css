@@ -14,7 +14,7 @@ body {
 /* HERO SECTION */
 .hero {
   height: 100vh;
-  background: url("assets/hero-background.jpg") center/cover no-repeat;
+  background: url("hero-background.jpg.jpg") center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
